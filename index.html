@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Website</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="dist/zoomy.js"></script>
+        <link type="text/css" rel="stylesheet" href="dist/zoomy.css">
+    </head>
+    <body>
+       
+        <div id='el'></div>
+     
+    </body>
+
+ <script>
+    var urls = [
+        'https://i.ytimg.com/vi/PW8tr4j1ZWE/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/RGv_p-at4PY/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/_BProcEekS0/maxresdefault.jpg'
+    ];
+    var options = {
+        //thumbLeft:true,
+        //thumbRight:true,
+        //thumbHide:true,
+        //width:300,
+        //height:500,
+    };
+    $('#el').zoomy(urls,options);
+ </script> 
+
+</html>
