@@ -1,8 +1,9 @@
-
-(function ( $ ) {
-    $.fn.zoomy = function(urls, options ) {
+(function ($) {
+    $.fn.zoomy = function(urls, options) {
         if(!urls) return;
-        if(!Array.isArray(urls)) urls = [urls];
+        if(typeof urls === 'string') urls = [urls];
+        if(!this.hasClass('zoom')) this.addClass('zoom');
+        //OPTIONS
         if(!options) options = {};
         if(urls.length<2) options.thumbHide=1;
         if(options.height || options.width) {
@@ -10,15 +11,20 @@
             if(options.width) st+='width:'+options.width+'px;';
             this.attr('style',st);
         }
-        if(!this.hasClass('zoom')) this.addClass('zoom');
         if(options.thumbRight || options.thumbLeft) this.addClass('zoom-right');
         if(options.thumbLeft) this.addClass('zoom-left');
-        var h = '<div class="zoom-main"><span class="zoom-mousemove" style="background-image: url('+urls[0]+')">';
-        h+='<img src="'+urls[0]+'" /></span></div>';
+        //REND
+        var thumbMode = (typeof urls[0] === 'string') ? 0 : 1;
+        var firstImage = (thumbMode) ? urls[0].image : urls[0];
+        var h = '<div class="zoom-main"><span class="zoom-mousemove" style="background-image: url('+firstImage+')">';
+        h+='<img src="'+firstImage+'" /></span></div>';
+        //THUMBS
         if(!options.thumbHide) {
             h+="<div class='zoom-thumb'>";
             $.each(urls,function(i,url){
-                h+="<a class='zoom-click' data-url='"+url+"' ><img src='"+url+"' /></a>";
+                var image  = (thumbMode) ? url.image : url;
+                var thumb  = (thumbMode) ? url.thumb : url;
+                h+="<a class='zoom-click' data-url='"+image+"' ><img src='"+thumb+"' /></a>";
             });
             h+="</div>";
         }
@@ -32,7 +38,8 @@
             y = offsetY/zoomer.offsetHeight*100
             zoomer.style.backgroundPosition = x + '% ' + y + '%';
         });
-        this.find('.zoom-click').on('click',function(){
+        var event = (options.thumbHover) ? 'mouseover' : 'click';
+        this.find('.zoom-click').on(event,function(){
             var main = $(this).parent().parent().find('.zoom-main > span')
             $(main).attr('style',"background-image: url("+$(this).attr('data-url')+")");
             $(main).find('img').attr('src',$(this).attr('data-url'));

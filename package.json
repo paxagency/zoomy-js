@@ -1,6 +1,6 @@
 {
   "name": "zoomy-js",
-  "version": "0.0.1",
+  "version": "0.0.21",
   "license": "MIT",
   "author": "Albert Kiteck <albert@paxagency.com>",
   "description": "Image and thumbnail viewer with zoom.",
